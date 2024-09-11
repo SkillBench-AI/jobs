@@ -5,7 +5,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
+	<head>		
 		<title>Work @ SkillBench</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -16,6 +16,22 @@
 				max-height: 0;
 				overflow: hidden;
 				transition: max-height 0.3s ease-out;
+			}
+
+			.collapsible-toggle {
+				position: relative;
+				padding-right: 2.5em; /* Make space for the arrow */
+			}
+
+			.collapsible-toggle::after {
+				content: '\25BC'; /* Down arrow Unicode character */
+				position: absolute;
+				right: 0.5em;
+				transition: transform 0.3s ease;
+			}
+
+			.collapsible-toggle[aria-expanded="true"]::after {
+				transform: rotate(180deg);
 			}
 		</style>
 	</head>
@@ -126,7 +142,7 @@ SkillBench is at the forefront of integrating Generative AI into enterprise work
 
 
 # What We're Building: The SkillBench Platform
-- **AI-powered tools** that analyze vast enterprise documents and data to construct comprehensive "task maps", a graph-based representation of the firm’s tasks
+- **AI-powered tools** that analyze vast enterprise documents and data to construct comprehensive "task maps", a graph-based representation of the firm's tasks
 - **Predictive models** that forecast and diagnose the impact of automation on productivity and skill development
 - **User interfaces** that empower managers and employees with different roles and hierarchies to make data-driven decisions about AI adoption
 - **Work design tools** that help firms optimize their automation strategies and AI policies
@@ -155,17 +171,17 @@ SkillBench is at the forefront of integrating Generative AI into enterprise work
 ### Work environment:
 - **Fully Remote**: Our positions are fully remote, allowing you to work from **anywhere in the U.S. or South Korea**. We've built our processes and culture around effective remote collaboration.
 - **Flexible Office Support**: While we're primarily remote, we understand that some team members may prefer or occasionally need a shared workspace. We support access to co-working spaces or shared offices in your location.
-- **Team Offsites**: We believe in the power of face-to-face interactions to build stronger bonds and spark innovation. We organize team offsites 1-2 times a year, bringing the whole team together for collaboration, strategic planning, and team building. 
+- **Team Offsites**: We believe in the power of face-to-face interactions to build stronger bonds and spark innovation. We organize team offsites 1-2 times a year, bringing the whole team together for collaboration, strategic planning, and team building.
 - **Competitive Compensation**: We offer competitive salaries, equity options, and a comprehensive benefits package.
 
-If you're a top-tier talent ready to take on one of the most significant challenges in today's AI landscape, we’d love to chat. Interested? Please send your resume with a position of interest to: <work@skillbench.com> 
+If you're a top-tier talent ready to take on one of the most significant challenges in today's AI landscape, we'd love to chat. Interested? Please send your resume with a position of interest to: <work@skillbench.com>
 
 
 # Available Positions
 We are open to talking to candidates at all levels of experience. Click the position title to learn more.
 
 
-## <a href="#ml-engineer" class="toggle-section">Machine Learning Engineer</a>
+## <a href="#ml-engineer" class="toggle-section collapsible-toggle" aria-expanded="false" aria-controls="ml-engineer">Machine Learning Engineer</a>
 <div id="ml-engineer" class="collapsible-content">
 
 ### Responsibilities
@@ -188,7 +204,7 @@ We are open to talking to candidates at all levels of experience. Click the posi
   - Experience with vector databases (e.g., LanceDB)
 </div>
 
-## <a href="#fe-engineer" class="toggle-section">Frontend Engineer</a>
+## <a href="#fe-engineer" class="toggle-section collapsible-toggle" aria-expanded="false" aria-controls="fe-engineer">Frontend Engineer</a>
 <div id="fe-engineer" class="collapsible-content">
 
 ### Responsibilities
@@ -202,7 +218,7 @@ We are open to talking to candidates at all levels of experience. Click the posi
 - Knowledge of AI: While not mandatory, knowledge of deep learning techniques and keeping up with cutting-edge AI technologies would be a plus. As our frontend work is closely integrated with data processing, having this knowledge will facilitate communication with other engineers.
 </div>
 
-## <a href="#be-engineer" class="toggle-section">Backend Engineer</a>
+## <a href="#be-engineer" class="toggle-section collapsible-toggle" aria-expanded="false" aria-controls="be-engineer">Backend Engineer</a>
 <div id="be-engineer" class="collapsible-content">
 
 ### Responsibilities
@@ -225,13 +241,17 @@ We are open to talking to candidates at all levels of experience. Click the posi
 			<script>
 
 				document.addEventListener('DOMContentLoaded', function() {
-					const toggles = document.querySelectorAll('.toggle-section');
+					const toggles = document.querySelectorAll('.collapsible-toggle');
 					toggles.forEach(toggle => {
 						toggle.addEventListener('click', function(e) {
 							e.preventDefault();
 							const targetId = this.getAttribute('href').slice(1);
 							const content = document.getElementById(targetId);
-							console.log(targetId, content);
+							const isExpanded = this.getAttribute('aria-expanded') === 'true';
+							
+							this.setAttribute('aria-expanded', !isExpanded);
+							content.setAttribute('aria-hidden', isExpanded);
+							
 							if (content.style.maxHeight) {
 								content.style.maxHeight = null;
 							} else {
